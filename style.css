@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+:root {
+    --primary: #6200EE;
+    --secondary: #03DAC6;
+    --bg-gradient: linear-gradient(135deg, #6200EE 0%, #03DAC6 100%);
+    --glass: rgba(255, 255, 255, 0.15);
+    --glass-dark: rgba(0, 0, 0, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.7);
+    --radius: 24px;
+    --blur: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Glassmorphism Classes */
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.glass-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, #fff, var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    max-width: 600px;
+}
+
+/* Form Styles */
+.container {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: var(--glass-dark);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 4px rgba(3, 218, 198, 0.2);
+}
+
+/* Checklist Styles */
+.checklist {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: var(--glass-dark);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.check-item:hover {
+    background: var(--glass);
+}
+
+.check-item input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--secondary);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+.btn-primary {
+    background: #fff;
+    color: var(--primary);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-whatsapp {
+    background: #25D366;
+    color: #fff;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+/* PWA Notification */
+#pwa-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    padding: 1.5rem;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    display: none;
+    z-index: 2000;
+    max-width: 300px;
+}
+
+/* Transitions */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        margin-top: 80px;
+    }
+}
