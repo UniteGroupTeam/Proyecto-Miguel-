@@ -3,11 +3,11 @@ const ASSETS = [
   './',
   './index.html',
   './registro.html',
-  './css/style.css',
-  './js/app.js',
+  './style.css',
+  './app.js',
   './manifest.json',
-  './assets/img/icon-192.png',
-  './assets/img/icon-512.png'
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {

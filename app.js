@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('js-enabled');
     initThreeJS();
     initAnimations();
     initPWA();
@@ -8,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- THREE.JS BACKGROUND ---
 function initThreeJS() {
     const container = document.getElementById('three-container');
-    if (!container) return;
+    if (!container || typeof THREE === 'undefined') return;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -19,29 +20,30 @@ function initThreeJS() {
 
     // Create a dynamic particle field
     const geometry = new THREE.BufferGeometry();
-    const count = 5000;
+    const count = 3000;
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count * 3; i++) {
-        positions[i] = (Math.random() - 0.5) * 10;
+        positions[i] = (Math.random() - 0.5) * 12;
     }
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
     const material = new THREE.PointsMaterial({
-        color: 0x03DAC6,
-        size: 0.02,
+        color: 0x7C4DFF, // Primary light
+        size: 0.015,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending
     });
 
     const points = new THREE.Points(geometry, material);
     scene.add(points);
 
-    camera.position.z = 3;
+    camera.position.z = 5;
 
     function animate() {
         requestAnimationFrame(animate);
-        points.rotation.y += 0.001;
-        points.rotation.x += 0.0005;
+        points.rotation.y += 0.0005;
+        points.rotation.x += 0.0002;
         renderer.render(scene, camera);
     }
     animate();
@@ -55,12 +57,14 @@ function initThreeJS() {
 
 // --- GSAP ANIMATIONS ---
 function initAnimations() {
+    if (typeof gsap === 'undefined') return;
     gsap.to('.fade-in', {
         opacity: 1,
         y: 0,
-        duration: 1,
-        stagger: 0.3,
-        ease: 'power3.out'
+        duration: 1.2,
+        stagger: 0.2,
+        ease: 'expo.out',
+        delay: 0.2
     });
 
     if (typeof ScrollTrigger !== 'undefined') {
@@ -68,12 +72,12 @@ function initAnimations() {
             gsap.from(card, {
                 scrollTrigger: {
                     trigger: card,
-                    start: 'top 80%',
+                    start: 'top 90%',
                 },
                 opacity: 0,
-                y: 50,
+                y: 40,
                 duration: 1,
-                ease: 'power2.out'
+                ease: 'power3.out'
             });
         });
     }

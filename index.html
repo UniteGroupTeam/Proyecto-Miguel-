@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RED DE PUNTOS - Limpieza de Calzado</title>
-    <meta name="description" content="Sistema profesional de limpieza profunda de calzado en Terminal 33. Calidad y rapidez.">
-    <link rel="stylesheet" href="css/style.css">
+    <title>RED DE PUNTOS | Premium Shoe Cleaning Lab</title>
+    <meta name="description" content="Servicio exclusivo de limpieza profunda y restauración de calzado. Terminal 33.">
+    <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#6200EE">
     <!-- GSAP -->
@@ -18,56 +18,53 @@
     <nav class="glass-nav">
         <div class="logo">RED DE PUNTOS</div>
         <div class="nav-links">
-            <a href="registro.html" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Registrar Calzado</a>
+            <a href="registro.html" class="btn btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">REGISTRAR AHORA</a>
         </div>
     </nav>
 
-    <div id="three-container" style="position: fixed; top:0; left:0; width:100%; height:100%; z-index: -1;"></div>
+    <div id="three-container"></div>
 
     <section class="hero">
         <div class="hero-content">
-            <h1 class="fade-in">SHOE CLEANING LAB</h1>
-            <p class="fade-in">Revive tus pasos con nuestro servicio de limpieza profunda y restauración en Terminal 33.</p>
-            <div class="cta-group fade-in" style="margin-top: 2rem;">
-                <a href="registro.html" class="btn btn-primary">Comenzar Registro</a>
+            <h1 class="fade-in">REDEFINING<br>FOOTWEAR CARE</h1>
+            <p class="fade-in">Experience the ultimate deep cleaning and restoration laboratory. Precision, quality, and passion in every step.</p>
+            <div class="cta-group fade-in">
+                <a href="registro.html" class="btn btn-primary">COMENZAR REGISTRO</a>
             </div>
         </div>
     </section>
 
-    <section class="container">
-        <div class="glass-card" style="padding: 3rem; margin-bottom: 4rem;">
-            <h2 style="margin-bottom: 1.5rem; color: var(--secondary);">Nuestros Servicios</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+    <div class="container">
+        <div class="glass-card fade-in" style="margin-bottom: 6rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem;">
                 <div>
-                    <h3>Deep Clean</h3>
-                    <p style="color: var(--text-muted);">$120 MXN</p>
-                    <p>Limpieza profunda integral de suela, laterales y parte superior.</p>
+                    <h2 style="font-family: 'Outfit'; font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--secondary);">Deep Clean</h2>
+                    <p style="font-size: 1.1rem; color: var(--text-dim); margin-bottom: 1rem;">Nuestra firma de limpieza integral. Tratamos cada par como una obra de arte, eliminando impurezas sin comprometer la integridad del material.</p>
+                    <span style="font-size: 1.5rem; font-weight: 800;">$120 MXN</span>
                 </div>
                 <div>
-                    <h3>Lustrado</h3>
-                    <p style="color: var(--text-muted);">$120 MXN</p>
-                    <p>Especial para calzado de vestir. Brillo y protección premium.</p>
+                    <h2 style="font-family: 'Outfit'; font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--primary-light);">Restauración</h2>
+                    <p style="font-size: 1.1rem; color: var(--text-dim); margin-bottom: 1rem;">Desde corrección de color hasta hidratación de pieles exóticas. Devolvemos la vida a tu calzado favorito con técnicas de vanguardia.</p>
+                    <span style="font-size: 1.5rem; font-weight: 800;">$120 MXN</span>
                 </div>
             </div>
         </div>
 
-        <div class="glass-card" style="padding: 3rem;">
-            <h2 style="margin-bottom: 1.5rem; color: var(--secondary);">Información Importante</h2>
-            <ul style="list-style: none; color: var(--text-muted); line-height: 1.8;">
-                <li>📍 Ubicación: Terminal 33</li>
-                <li>⏱️ Entrega: 24 a 72 horas</li>
-                <li>📲 Notificación vía WhatsApp al terminar</li>
-                <li>⚠️ Límite de 45 días para recolección</li>
-            </ul>
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <h2 class="fade-in" style="font-family: 'Outfit'; font-size: 3rem; margin-bottom: 2rem;">TERMINAL 33</h2>
+            <div class="glass-card fade-in" style="display: inline-block; padding: 2rem 4rem;">
+                <p style="font-size: 1.2rem;">Lunes a Sábado | 24 - 72 Horas de Entrega</p>
+            </div>
         </div>
-    </section>
-
-    <div id="pwa-toast">
-        <p>Instala nuestra App para un acceso más rápido.</p>
-        <button id="btn-install" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">Instalar Ahora</button>
     </div>
 
-    <script src="js/app.js"></script>
+    <div id="pwa-toast" class="glass-card" style="position: fixed; bottom: 2rem; right: 2rem; display: none; z-index: 2000; padding: 2rem; max-width: 350px;">
+        <h3 style="margin-bottom: 0.5rem;">Instalar Aplicación</h3>
+        <p style="color: var(--text-dim); margin-bottom: 1.5rem;">Accede al registro de calzado al instante desde tu pantalla de inicio.</p>
+        <button id="btn-install" class="btn btn-primary" style="width: 100%;">INSTALAR APP</button>
+    </div>
+
+    <script src="app.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js');
