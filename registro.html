@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Calzado - RED DE PUNTOS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <nav class="glass-nav">
+        <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">RED DE PUNTOS</a>
+        <a href="index.html" style="color: #fff; text-decoration: none;">← Volver</a>
+    </nav>
+
+    <div class="container">
+        <form id="registration-form" class="glass-card" style="padding: 2.5rem;">
+            <h1 style="margin-bottom: 2rem; border-bottom: 2px solid var(--secondary); padding-bottom: 0.5rem;">Registro de Entrada</h1>
+            
+            <!-- Datos del Cliente -->
+            <section class="form-section">
+                <h2 style="margin-bottom: 1rem; font-size: 1.2rem;">👤 Datos del Cliente</h2>
+                <div class="form-group">
+                    <label for="cliente_nombre">Nombre Completo</label>
+                    <input type="text" id="cliente_nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
+                </div>
+                <div class="form-group">
+                    <label for="cliente_tel">Teléfono / WhatsApp</label>
+                    <input type="tel" id="cliente_tel" name="telefono" placeholder="10 dígitos" pattern="[0-9]{10}" required title="Por favor ingresa un número de 10 dígitos">
+                </div>
+            </section>
+
+            <!-- Detalles del Calzado -->
+            <section class="form-section">
+                <h2 style="margin-bottom: 1rem; font-size: 1.2rem;">👟 Detalles del Calzado</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="zapato_marca">Marca</label>
+                        <input type="text" id="zapato_marca" name="marca" placeholder="Nike, Adidas, etc." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zapato_modelo">Modelo</label>
+                        <input type="text" id="zapato_modelo" name="modelo" placeholder="Air Max, Jordan, etc." required>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="zapato_color">Color</label>
+                        <input type="text" id="zapato_color" name="color" placeholder="Blanco/Azul" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zapato_talla">Talla</label>
+                        <input type="number" id="zapato_talla" name="talla" placeholder="Ej. 27" step="0.5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="zapato_estado">Estado Inicial (Observaciones)</label>
+                    <textarea id="zapato_estado" name="estado" rows="3" placeholder="Ej. Manchas de lodo, suela desgastada..."></textarea>
+                </div>
+            </section>
+
+            <!-- Servicios -->
+            <section class="form-section">
+                <h2 style="margin-bottom: 1rem; font-size: 1.2rem;">✨ Servicios Deseados</h2>
+                <div class="checklist">
+                    <label class="check-item">
+                        <input type="checkbox" name="servicio" value="Limpieza Básica">
+                        <span>Limpieza Básica</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox" name="servicio" value="Restauración">
+                        <span>Restauración</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox" name="servicio" value="Desinfectado">
+                        <span>Desinfectado</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox" name="servicio" value="Repelente">
+                        <span>Repelente</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Punto de Entrega -->
+            <section class="form-section" style="margin-top: 2rem;">
+                <h2 style="margin-bottom: 1rem; font-size: 1.2rem;">📍 Punto de Entrega</h2>
+                <div class="form-group">
+                    <select id="punto_entrega" name="punto" required>
+                        <option value="" disabled selected>Selecciona una ubicación</option>
+                        <option value="Terminal 33">Terminal 33 (El Maratón)</option>
+                        <option value="Punto Norte">Sucursal Norte</option>
+                        <option value="Punto Centro">Sucursal Centro</option>
+                    </select>
+                </div>
+            </section>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 2rem; background: var(--secondary); color: #000;">Registrar Calzado</button>
+        </form>
+
+        <!-- Modal de Éxito -->
+        <div id="success-modal" class="glass-card" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 3rem; text-align: center; z-index: 3000; width: 90%; max-width: 500px;">
+            <h2 style="color: var(--secondary); margin-bottom: 1rem;">✅ ¡Registro Exitoso!</h2>
+            <p id="folio-text" style="font-size: 1.2rem; margin-bottom: 2rem;">Folio: #<span id="folio-id"></span></p>
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">Los datos han sido enviados. Haz clic abajo para generar tu comprobante.</p>
+            <a id="whatsapp-btn" href="#" target="_blank" class="btn btn-whatsapp">Enviar Comprobante vía WhatsApp</a>
+            <button onclick="location.reload()" class="btn" style="margin-top: 1rem; background: transparent; border: 1px solid var(--glass-border); color: #fff;">Nuevo Registro</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
