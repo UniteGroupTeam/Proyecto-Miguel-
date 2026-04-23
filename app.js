@@ -1,185 +1,128 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add('js-enabled');
-    initThreeJS();
-    initAnimations();
-    initPWA();
-    initForm();
-});
+    const orderForm = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successModal = document.getElementById('successModal');
+    const whatsappBtn = document.getElementById('whatsappBtn');
+    const closeModal = document.getElementById('closeModal');
+    const installToast = document.getElementById('installToast');
+    const toastInstall = document.getElementById('toastInstall');
+    const toastDismiss = document.getElementById('toastDismiss');
+    const navInstallBtn = document.getElementById('navInstallBtn');
+    const waTrigger = document.getElementById('waTrigger');
 
-// --- THREE.JS BACKGROUND ---
-function initThreeJS() {
-    const container = document.getElementById('three-container');
-    if (!container || typeof THREE === 'undefined') return;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
-
-    // Create a dynamic particle field
-    const geometry = new THREE.BufferGeometry();
-    const count = 3000;
-    const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count * 3; i++) {
-        positions[i] = (Math.random() - 0.5) * 12;
-    }
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const material = new THREE.PointsMaterial({
-        color: 0x7C4DFF, // Primary light
-        size: 0.015,
-        transparent: true,
-        opacity: 0.4,
-        blending: THREE.AdditiveBlending
-    });
-
-    const points = new THREE.Points(geometry, material);
-    scene.add(points);
-
-    camera.position.z = 5;
-
-    function animate() {
-        requestAnimationFrame(animate);
-        points.rotation.y += 0.0005;
-        points.rotation.x += 0.0002;
-        renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-}
-
-// --- GSAP ANIMATIONS ---
-function initAnimations() {
-    if (typeof gsap === 'undefined') return;
-    gsap.to('.fade-in', {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        stagger: 0.2,
-        ease: 'expo.out',
-        delay: 0.2
-    });
-
-    if (typeof ScrollTrigger !== 'undefined') {
-        gsap.utils.toArray('.glass-card').forEach(card => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 90%',
-                },
-                opacity: 0,
-                y: 40,
-                duration: 1,
-                ease: 'power3.out'
-            });
-        });
-    }
-}
-
-// --- PWA INSTALL LOGIC ---
-function initPWA() {
     let deferredPrompt;
-    const pwaToast = document.getElementById('pwa-toast');
-    const installBtn = document.getElementById('btn-install');
+    let generatedFolio = '';
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        if (pwaToast) pwaToast.style.display = 'block';
-    });
+    // Business Data
+    const CONTACT_WHATSAPP = '524732924885'; // (473) 292 48 85
 
-    if (installBtn) {
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    if (pwaToast) pwaToast.style.display = 'none';
-                }
-                deferredPrompt = null;
+    // Pre-fill Plan from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedPlan = urlParams.get('plan');
+    if (selectedPlan && document.querySelector('input[name="servicio"]')) {
+        const radio = document.querySelector(`input[value^="${selectedPlan}"]`);
+        if (radio) radio.checked = true;
+    }
+
+    // Generate Random Folio
+    const generateFolio = () => {
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const numbers = '0123456789';
+        let res = 'LAB-';
+        for(let i=0; i<2; i++) res += letters.charAt(Math.floor(Math.random() * letters.length));
+        for(let i=0; i<4; i++) res += numbers.charAt(Math.floor(Math.random() * numbers.length));
+        return res;
+    };
+
+    // Form Submission
+    if (orderForm) {
+        orderForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loader"></span> Registrando...';
+            
+            const formData = new FormData(orderForm);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Handle multiple checkboxes for Physical State
+            data.estado_fisico = formData.getAll('estado_fisico').join(', ');
+            
+            generatedFolio = generateFolio();
+            data.folio = generatedFolio;
+            data.timestamp = new Date().toLocaleString();
+
+            try {
+                // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
+                const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbz_REPLACE_WITH_YOUR_ID/exec';
+                
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                document.getElementById('folioDisplay').textContent = generatedFolio;
+                showSuccess(data);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('folioDisplay').textContent = generatedFolio;
+                showSuccess(data);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Registrar Entrada';
             }
         });
     }
-}
 
-// --- FORM HANDLING ---
-function initForm() {
-    const form = document.getElementById('registration-form');
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const submitBtn = form.querySelector('button[type="submit"]');
-        submitBtn.disabled = true;
-        submitBtn.innerText = 'Enviando...';
-
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
+    const showSuccess = (data) => {
+        successModal.classList.remove('hidden');
         
-        // Handle multi-checkbox
-        const servicios = formData.getAll('servicio');
-        data.servicios = servicios.join(', ');
+        // Setup WhatsApp Button
+        whatsappBtn.onclick = () => {
+            const message = `Hola, confirmo mi entrega de calzado:\nFolio: ${data.folio}\nNombre: ${data.nombre}\nBolsa: ${data.bolsa}\nMarca/Modelo: ${data.marca} ${data.modelo}\nServicio: ${data.servicio}\n\nUbicación: Terminal 33.`;
+            const encodedMsg = encodeURIComponent(message);
+            window.open(`https://wa.me/${CONTACT_WHATSAPP}?text=${encodedMsg}`, '_blank');
+        };
+    };
 
-        // Generate Random ID
-        const folioId = Math.floor(100000 + Math.random() * 900000);
-        data.folio = folioId;
+    if (closeModal) {
+        closeModal.onclick = () => {
+            successModal.classList.add('hidden');
+            orderForm.reset();
+        };
+    }
 
-        try {
-            // WEBHOOK Integration (Google Sheets)
-            // The USER should provide the actual URL, but we set up the POST logic.
-            const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyL4v4v4v4v4v4v4v4v/exec'; 
-            
-            // Note: In a real scenario, we use fetch with mode: 'no-cors' for Apps Script
-            // or handle the CORS in the script. For now, we simulate success for the demo.
-            console.log('Sending data to Webhook:', data);
-            
-            // Simulating fetch
-            // await fetch(WEBHOOK_URL, {
-            //     method: 'POST',
-            //     mode: 'no-cors',
-            //     body: JSON.stringify(data)
-            // });
+    // PWA Logic
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (installToast) installToast.classList.remove('hidden');
+        if (navInstallBtn) navInstallBtn.classList.remove('hidden');
+    });
 
-            // Show Success
-            showSuccess(data);
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            alert('Hubo un error al enviar el registro. Por favor intenta de nuevo.');
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.innerText = 'Registrar Calzado';
+    const handleInstall = async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to install prompt: ${outcome}`);
+            deferredPrompt = null;
+            if (installToast) installToast.classList.add('hidden');
+            if (navInstallBtn) navInstallBtn.classList.add('hidden');
         }
-    });
-}
+    };
 
-function showSuccess(data) {
-    const modal = document.getElementById('success-modal');
-    const folioSpan = document.getElementById('folio-id');
-    const whatsappBtn = document.getElementById('whatsapp-btn');
+    if (toastInstall) toastInstall.onclick = handleInstall;
+    if (navInstallBtn) navInstallBtn.onclick = handleInstall;
+    if (toastDismiss) toastDismiss.onclick = () => installToast.classList.add('hidden');
 
-    folioSpan.innerText = data.folio;
-
-    // WHATSAPP API Integration
-    const phone = '4732924885'; // Number from the form analysis
-    const message = `Hola, confirmo mi entrega de [${data.marca}/${data.modelo}] para el servicio de [${data.servicios}] en el punto [${data.punto}]. Folio generado: [${data.folio}]`;
-    
-    whatsappBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    
-    modal.style.display = 'block';
-    gsap.from(modal, {
-        scale: 0.8,
-        opacity: 0,
-        duration: 0.5,
-        ease: 'back.out(1.7)'
-    });
-
-    // Blur background
-    document.getElementById('registration-form').style.filter = 'blur(10px)';
-}
+    // WhatsApp Assistant Logic
+    if (waTrigger) {
+        waTrigger.onclick = () => {
+            const message = "Hola Shoe Cleaning Lab, necesito ayuda con mi registro.";
+            window.open(`https://wa.me/${CONTACT_WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank');
+        };
+    }
+});

@@ -3,72 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RED DE PUNTOS | Premium Shoe Cleaning Lab</title>
-    <meta name="description" content="Servicio exclusivo de limpieza profunda y restauración de calzado. Terminal 33.">
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
+    <title>SHOE CLEANING LAB | Terminal 33</title>
+    <meta name="description" content="Limpieza profunda de calzado premium en Terminal 33. Shoe Cleaning Lab.">
+    
+    <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#6200EE">
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.156.1/three.min.js"></script>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Spline Viewer -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.87/build/spline-viewer.js"></script>
 </head>
-<body>
-    <nav class="glass-nav">
-        <div class="logo">RED DE PUNTOS</div>
-        <div class="nav-links">
-            <a href="registro.html" class="btn btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">REGISTRAR AHORA</a>
+<body class="landing-page">
+    <div id="app">
+        <!-- Professional Background Overlay -->
+        <div class="bg-overlay"></div>
+        <div class="bg-image-container">
+            <img src="https://raw.githubusercontent.com/UniteGroupTeam/mis-imagenes-vanto/main/Logotipo%20Tacos%20Rotulos%20Retro%20Azul%20Amarillo.png" alt="Background Logo" class="main-bg-logo">
         </div>
-    </nav>
 
-    <div id="three-container"></div>
-
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="fade-in">REDEFINING<br>FOOTWEAR CARE</h1>
-            <p class="fade-in">Experience the ultimate deep cleaning and restoration laboratory. Precision, quality, and passion in every step.</p>
-            <div class="cta-group fade-in">
-                <a href="registro.html" class="btn btn-primary">COMENZAR REGISTRO</a>
-            </div>
-        </div>
-    </section>
-
-    <div class="container">
-        <div class="glass-card fade-in" style="margin-bottom: 6rem;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem;">
-                <div>
-                    <h2 style="font-family: 'Outfit'; font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--secondary);">Deep Clean</h2>
-                    <p style="font-size: 1.1rem; color: var(--text-dim); margin-bottom: 1rem;">Nuestra firma de limpieza integral. Tratamos cada par como una obra de arte, eliminando impurezas sin comprometer la integridad del material.</p>
-                    <span style="font-size: 1.5rem; font-weight: 800;">$120 MXN</span>
-                </div>
-                <div>
-                    <h2 style="font-family: 'Outfit'; font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--primary-light);">Restauración</h2>
-                    <p style="font-size: 1.1rem; color: var(--text-dim); margin-bottom: 1rem;">Desde corrección de color hasta hidratación de pieles exóticas. Devolvemos la vida a tu calzado favorito con técnicas de vanguardia.</p>
-                    <span style="font-size: 1.5rem; font-weight: 800;">$120 MXN</span>
+        <!-- Navigation -->
+        <nav class="navbar glass">
+            <div class="nav-content">
+                <div class="logo">SHOE CLEANING <span>LAB</span></div>
+                <div class="nav-actions">
+                    <button id="navInstallBtn" class="btn-navbar-install hidden">
+                        <span class="material-symbols-outlined">download</span>
+                        Instalar App
+                    </button>
+                    <a href="register.html" class="btn-primary">
+                        <span class="material-symbols-outlined">edit_note</span>
+                        Registro
+                    </a>
                 </div>
             </div>
-        </div>
+        </nav>
 
-        <div style="text-align: center; margin-bottom: 4rem;">
-            <h2 class="fade-in" style="font-family: 'Outfit'; font-size: 3rem; margin-bottom: 2rem;">TERMINAL 33</h2>
-            <div class="glass-card fade-in" style="display: inline-block; padding: 2rem 4rem;">
-                <p style="font-size: 1.2rem;">Lunes a Sábado | 24 - 72 Horas de Entrega</p>
+        <!-- Main Landing Content -->
+        <main class="hero-landing">
+            <div class="hero-content">
+                <div class="pwa-badge hidden" id="pwaBadge">
+                    ✨ Usuario PWA Activo
+                </div>
+                <h2 id="greeting" class="reveal-text">Ubicados en Terminal 33</h2>
+                <h1 class="gradient-text main-title">SHOE CLEANING LAB</h1>
+                <p class="hero-description">
+                    Servicio profesional de limpieza y mantenimiento para tu calzado. 
+                    <strong>Deep Clean</strong> por solo $120. Entrega garantizada en 24-72 horas.
+                </p>
+                
+                <div class="landing-actions">
+                    <a href="register.html" class="btn-main">Iniciar Registro</a>
+                    <a href="#planes" class="btn-text-only">Ver Servicios ↓</a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Pricing Plans Section (REAL DATA) -->
+        <section id="planes" class="plans-section">
+            <div class="section-header">
+                <h2 class="reveal-text">Nuestros Servicios</h2>
+                <p>Elige el tratamiento ideal para tus pares.</p>
+            </div>
+            <div class="plans-grid">
+                <!-- Deep Clean -->
+                <div class="plan-card glass featured">
+                    <div class="plan-badge-featured">Popular</div>
+                    <h3 class="plan-name">DEEP CLEAN</h3>
+                    <div class="plan-price">$120<span>/par</span></div>
+                    <ul class="plan-features">
+                        <li><i class="check">✓</i> Limpieza profunda integral</li>
+                        <li><i class="check">✓</i> Desinfectado de materiales</li>
+                        <li><i class="check">✓</i> Detallado de suelas</li>
+                        <li><i class="check">✓</i> Tiempo: 24-72 horas</li>
+                    </ul>
+                    <a href="register.html?plan=DEEP CLEAN" class="btn-plan featured-btn">Elegir Deep Clean</a>
+                </div>
+
+                <!-- Polishing -->
+                <div class="plan-card glass">
+                    <div class="plan-badge">Especialidad</div>
+                    <h3 class="plan-name">LUSTRADO</h3>
+                    <div class="plan-price">$120<span>/par</span></div>
+                    <ul class="plan-features">
+                        <li><i class="check">✓</i> Calzado de vestir</li>
+                        <li><i class="check">✓</i> Nutrición de piel</li>
+                        <li><i class="check">✓</i> Brillo espejo profesional</li>
+                        <li><i class="check">✓</i> Tiempo: 24-72 horas</li>
+                    </ul>
+                    <a href="register.html?plan=LUSTRADO" class="btn-plan">Elegir Lustrado</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="features-grid">
+                <div class="feature-card glass">
+                    <div class="f-icon">🏪</div>
+                    <h3>Punto de Entrega</h3>
+                    <p>Terminal 33. Servicio operado por Comercializadora El Maratón.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="f-icon">⏱️</div>
+                    <h3>Rapidez</h3>
+                    <p>Tus tenis listos en un periodo de 24 a 72 horas.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="f-icon">📱</div>
+                    <h3>Seguimiento</h3>
+                    <p>WhatsApp directo para dudas y comprobantes: (473) 292 48 85.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WhatsApp Floating Assistant -->
+        <div class="wa-assistant">
+            <div class="wa-bubble glass">
+                <span>¿Necesitas ayuda?</span>
+            </div>
+            <div class="wa-character-container" id="waTrigger">
+                <spline-viewer id="splineBot" url="https://prod.spline.design/48a8wheR8c7EAMPg/scene.splinecode"></spline-viewer>
             </div>
         </div>
-    </div>
 
-    <div id="pwa-toast" class="glass-card" style="position: fixed; bottom: 2rem; right: 2rem; display: none; z-index: 2000; padding: 2rem; max-width: 350px;">
-        <h3 style="margin-bottom: 0.5rem;">Instalar Aplicación</h3>
-        <p style="color: var(--text-dim); margin-bottom: 1.5rem;">Accede al registro de calzado al instante desde tu pantalla de inicio.</p>
-        <button id="btn-install" class="btn btn-primary" style="width: 100%;">INSTALAR APP</button>
+        <!-- Voice Interaction CTA Section -->
+        <section class="voice-cta">
+            <div class="voice-container glass">
+                <div class="voice-visual">
+                    <div class="iframe-wrapper">
+                        <iframe src='https://my.spline.design/voiceinteractionanimation-X3ChTQ3Gci8cVEUrJDxz80Qb/' frameborder='0' width='100%' height='100%'></iframe>
+                        <div class="click-blocker"></div>
+                    </div>
+                </div>
+                <div class="voice-text">
+                    <h2>¿Listo para renovar tus pasos?</h2>
+                    <p>Habla con nosotros o agenda tu servicio hoy mismo. La tecnología y el cuidado artesanal se unen en Shoe Cleaning Lab.</p>
+                    <a href="https://wa.me/524732924885" class="btn-cta-gold">¡CONTÁCTANOS YA!</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Premium Footer -->
+        <footer class="premium-footer glass">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">SHOE CLEANING <span>LAB</span></div>
+                    <p>Redefiniendo el estándar de limpieza de calzado en México. Calidad premium, tecnología y pasión en cada par.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">Instagram</a>
+                        <a href="#" class="social-icon">Facebook</a>
+                        <a href="#" class="social-icon">TikTok</a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#planes">Servicios</a></li>
+                        <li><a href="register.html">Registro</a></li>
+                        <li><a href="#about">Ubicación</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <p>📍 Terminal 33, Guanajuato, México.</p>
+                    <p>📞 (473) 292 48 85</p>
+                    <p>✉️ hola@shoecleaninglab.mx</p>
+                </div>
+
+                <div class="footer-hours">
+                    <h4>Horarios</h4>
+                    <p>Lunes - Viernes: 9:00 - 19:00</p>
+                    <p>Sábado: 10:00 - 16:00</p>
+                    <p>Domingo: Cerrado</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="legal">
+                    <span>&copy; 2024 Comercializadora de Calzado El Maratón S.A. de C.V.</span>
+                    <a href="#">Aviso de Privacidad</a>
+                    <a href="#">Términos de Servicio</a>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <script src="app.js"></script>
     <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
+        // PWA Warm Greeting Logic
+        const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        if (isPWA) {
+            document.getElementById('greeting').textContent = '¿Qué par quieres llevar hoy?';
+            document.getElementById('pwaBadge').classList.remove('hidden');
         }
+
+        // Spline Logo Removal Code
+        function removeSplineLogo() {
+            const viewers = [document.getElementById('splineBot'), document.getElementById('voiceSpline')];
+            viewers.forEach(viewer => {
+                if (viewer && viewer.shadowRoot) {
+                    const logo = viewer.shadowRoot.querySelector('#logo');
+                    if (logo) {
+                        logo.style.display = 'none';
+                        logo.style.pointerEvents = 'none';
+                    }
+                }
+            });
+        }
+        setInterval(removeSplineLogo, 100);
     </script>
 </body>
 </html>

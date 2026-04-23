@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTRO | Shoe Cleaning Lab</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.87/build/spline-viewer.js"></script>
+</head>
+<body class="register-page">
+    <nav class="navbar glass">
+        <div class="nav-content">
+            <a href="index.html" class="logo">SHOE CLEANING <span>LAB</span></a>
+            <div class="nav-actions">
+                <button id="navInstallBtn" class="btn-navbar-install hidden">
+                    <span class="material-symbols-outlined">download</span>
+                    Instalar App
+                </button>
+                <a href="index.html" class="btn-icon-google" title="Volver al Inicio">
+                    <span class="material-symbols-outlined">home</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="registro" class="registration-section">
+        <div class="section-header">
+            <h2>Registro de Entrada</h2>
+            <p>Por favor, completa los datos reales de tu entrega.</p>
+        </div>
+
+        <div class="form-container glass">
+            <form id="orderForm">
+                <!-- Administrative Info -->
+                <div class="form-group">
+                    <h3>🏷️ Control Interno</h3>
+                    <div class="input-grid">
+                        <div class="input-field">
+                            <label for="bolsa">Bolsa #</label>
+                            <input type="text" id="bolsa" name="bolsa" placeholder="Escribe el número de bolsa" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client Info -->
+                <div class="form-group">
+                    <h3>👤 Datos del Cliente</h3>
+                    <div class="input-grid">
+                        <div class="input-field">
+                            <label for="nombre">Nombre Completo</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Nombre y Apellidos" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="telefono">WhatsApp</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="Tu número de contacto" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shoe Info -->
+                <div class="form-group">
+                    <h3>👟 Detalles del Calzado</h3>
+                    <div class="input-grid">
+                        <div class="input-field">
+                            <label for="marca">Marca</label>
+                            <input type="text" id="marca" name="marca" placeholder="Ej. Nike, Jordan" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="modelo">Modelo</label>
+                            <input type="text" id="modelo" name="modelo" placeholder="Ej. Air Force 1" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="color">Color Principal</label>
+                            <input type="text" id="color" name="color" placeholder="Color dominante" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="talla">Talla / Número</label>
+                            <input type="text" id="talla" name="talla" placeholder="Ej. 27 MX / 9 US" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Physical State -->
+                <div class="form-group">
+                    <h3>🔍 Estado Físico (Selecciona los que apliquen)</h3>
+                    <div class="checkbox-grid-mini">
+                        <label class="check-item"><input type="checkbox" name="estado_fisico" value="Falta agujeta"> Falta agujeta</label>
+                        <label class="check-item"><input type="checkbox" name="estado_fisico" value="Suela despegada"> Suela despegada</label>
+                        <label class="check-item"><input type="checkbox" name="estado_fisico" value="Suela rota"> Suela rota</label>
+                        <label class="check-item"><input type="checkbox" name="estado_fisico" value="Tela rota"> Tela rota</label>
+                        <label class="check-item"><input type="checkbox" name="estado_fisico" value="Manchas de cloro/pintura"> Manchas de cloro/pintura</label>
+                        <label class="check-item"><input type="checkbox" name="estado_fisico" value="Despintado"> Despintado</label>
+                        <label class="check-item"><input type="checkbox" name="estado_fisico" value="Raspones"> Raspones</label>
+                        <label class="check-item"><input type="checkbox" name="estado_fisico" value="Piel agrietada"> Piel agrietada</label>
+                    </div>
+                    <div class="input-field full-width">
+                        <label for="notas">Otros Detalles Físicos</label>
+                        <textarea id="notas" name="notas" rows="2" placeholder="Describe cualquier otro detalle..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Service Selection -->
+                <div class="form-group">
+                    <h3>✨ Tipo de Servicio</h3>
+                    <div class="radio-grid">
+                        <label class="radio-card glass">
+                            <input type="radio" name="servicio" value="DEEP CLEAN $120" required>
+                            <div class="radio-content">
+                                <span class="radio-name">DEEP CLEAN</span>
+                                <span class="radio-price">$120</span>
+                            </div>
+                        </label>
+                        <label class="radio-card glass">
+                            <input type="radio" name="servicio" value="LUSTRADO $120" required>
+                            <div class="radio-content">
+                                <span class="radio-name">LUSTRADO</span>
+                                <span class="radio-price">$120</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="form-group">
+                    <label class="terms-check">
+                        <input type="checkbox" name="terminos" required>
+                        <span>Acepto que Shoe Cleaning Lab no se hace responsable por daños preexistentes y que el plazo máximo de recolección es de 45 días.</span>
+                    </label>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-submit">Registrar Entrada</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal glass hidden">
+        <div class="modal-content glass">
+            <div class="success-icon">✓</div>
+            <h2>Registro Completado</h2>
+            <p>Folio: <strong id="folioDisplay"></strong></p>
+            <p>Tu calzado estará listo en un periodo de 24 a 72 horas.</p>
+            <div class="modal-actions">
+                <button id="whatsappBtn" class="btn-whatsapp">Enviar Comprobante</button>
+                <button id="closeModal" class="btn-close">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Same Assistant -->
+    <div class="wa-assistant">
+        <div class="wa-character-container" id="waTrigger">
+            <spline-viewer id="splineBotForm" url="https://prod.spline.design/48a8wheR8c7EAMPg/scene.splinecode"></spline-viewer>
+        </div>
+    </div>
+
+    <!-- Premium Footer -->
+    <footer class="premium-footer glass">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">SHOE CLEANING <span>LAB</span></div>
+                <p>Calidad premium en cada par. El estándar más alto en limpieza de calzado en México.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>Contacto</h4>
+                <p>📍 Terminal 33, Guanajuato.</p>
+                <p>📞 (473) 292 48 85</p>
+            </div>
+            <div class="footer-hours">
+                <h4>Horarios</h4>
+                <p>Lun - Vie: 9am - 7pm</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="legal">
+                <span>&copy; 2024 Comercializadora El Maratón.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        function removeSplineLogo() {
+            const viewer = document.getElementById('splineBotForm');
+            if (viewer && viewer.shadowRoot) {
+                const logo = viewer.shadowRoot.querySelector('#logo');
+                if (logo) {
+                    logo.style.display = 'none';
+                    logo.style.pointerEvents = 'none';
+                }
+            }
+        }
+        setInterval(removeSplineLogo, 100);
+    </script>
+</body>
+</html>
